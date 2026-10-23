@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Datasets and raw videos
+dataset/
+prepared_faces_ffpp/
+prepared_faces_full/
+raw_videos/
+prepared_faces/
+prepared_faces_*/
+
+# Model weights and generated outputs
+models/*.pth
+models/*.pt
+models/*.ckpt
+models/tests/
+models/test_results/
+pretrained_models/
+
+# Logs and training outputs
+runs/
+logs/
+*.log
+
+.DS_Store
+Thumbs.db

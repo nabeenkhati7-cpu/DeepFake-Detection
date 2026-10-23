@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 30px 16px;
+            color: #172033;
+        }
+        .card {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 28px #00000012;
+        }
+        h1 { text-align: center; color: #243b70; margin-bottom: 8px; }
+        .subtitle { text-align: center; color: #64748b; margin-top: 0; }
+        label { display: block; margin: 18px 0 8px; font-weight: bold; }
+        select, input[type=file], button, .btn-live {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 24px;
+            background: #3156c9;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: #2343a6; }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0 20px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .divider:not(:empty)::before { margin-right: .75em; }
+        .divider:not(:empty)::after { margin-left: .75em; }
+        .btn-live {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #ffffff;
+            color: #0f766e;
+            border: 2px solid #0f766e;
+            font-weight: bold;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-live:hover {
+            background: #0f766e;
+            color: #ffffff;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .note {
+            margin-top: 24px;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Deepfake Detection</h1>
+        <p class="subtitle">Analyze a photo or video using your trained AI model.</p>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <label for="media_type">Detection type</label>
+            <select id="media_type" name="media_type">
+                <option value="photo">Photo detection</option>
+                <option value="video">Video detection</option>
+            </select>
+
+            <label for="file">Choose a photo or video</label>
+            <input id="file" type="file" name="file" required
+                   accept="image/jpeg,image/png,image/webp,video/mp4,video/x-msvideo,video/quicktime,video/x-matroska">
+
+            <button type="submit">Detect Deepfake</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <a href="{{ url_for('live') }}" class="btn-live">📹 Switch to Real-Time Webcam</a>
+
+        <p class="note">
+            Supported photos: JPG, JPEG, PNG, WEBP.<br>
+            Supported videos: MP4, AVI, MOV, MKV.<br>
+            Maximum upload size: 100 MB.<br>
+            Predictions are experimental and do not prove authenticity.
+        </p>
+    </main>
+</body>
+</html>

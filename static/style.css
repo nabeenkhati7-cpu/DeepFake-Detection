@@ -1,0 +1,134 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    font-family: Arial, sans-serif;
+    color: #1f2937;
+    background: linear-gradient(135deg, #e0e7ff, #f5f3ff, #ecfeff);
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+    padding: 35px;
+    text-align: center;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(31, 41, 55, 0.12);
+}
+
+.icon {
+    font-size: 42px;
+}
+
+h1 {
+    margin-bottom: 12px;
+    color: #312e81;
+}
+
+.subtitle {
+    line-height: 1.6;
+    color: #64748b;
+}
+
+form {
+    margin-top: 28px;
+}
+
+.upload-label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px dashed #818cf8;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.hint {
+    font-size: 12px;
+    color: #64748b;
+}
+
+button,
+.back-button {
+    display: inline-block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #4f46e5;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover,
+.back-button:hover {
+    background: #3730a3;
+}
+
+.error {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.preview {
+    display: block;
+    width: 100%;
+    max-height: 320px;
+    margin: 24px auto;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.result-card {
+    padding: 20px;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.result-label,
+.score {
+    color: #64748b;
+}
+
+.real {
+    color: #15803d;
+}
+
+.fake {
+    color: #b91c1c;
+}
+
+.disclaimer {
+    margin-top: 25px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #64748b;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 24px 18px;
+    }
+}

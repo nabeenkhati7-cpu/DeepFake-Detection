@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 30px 16px;
+            color: #172033;
+        }
+        .card {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 8px 28px #00000012;
+            text-align: center;
+        }
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 6px;
+        }
+        .subtitle {
+            color: #64748b;
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+        .media-preview-container {
+            margin: 0 auto 24px;
+            max-height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+        .media-preview {
+            max-width: 100%;
+            max-height: 380px;
+            border-radius: 12px;
+            display: block;
+        }
+        .verdict-box {
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 18px;
+        }
+        .verdict-fake {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .verdict-real {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        .verdict-neutral {
+            background-color: #fef9c3;
+            color: #854d0e;
+            border: 1px solid #fef08a;
+        }
+        .score-text {
+            font-size: 16px;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+        .disclaimer {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-top: 14px;
+            margin-bottom: 28px;
+        }
+        .btn-action {
+            display: inline-block;
+            text-decoration: none;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+        .btn-action:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Detection Result</h1>
+        <p class="subtitle">Detection type: <strong>{{ media_type | capitalize }}</strong></p>
+
+        <div class="media-preview-container">
+            {% if media_type == 'photo' %}
+                <img src="{{ url_for('static', filename='uploads/' + filename) }}" 
+                     alt="Uploaded portrait" 
+                     class="media-preview">
+            {% elif media_type == 'video' %}
+                <video controls class="media-preview">
+                    <source src="{{ url_for('static', filename='uploads/' + filename) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% endif %}
+        </div>
+
+        {% if 'DEEPFAKE' in prediction or 'FAKE' in prediction %}
+            <div class="verdict-box verdict-fake">{{ prediction }}</div>
+        {% elif 'REAL' in prediction or 'AUTHENTIC' in prediction %}
+            <div class="verdict-box verdict-real">{{ prediction }}</div>
+        {% else %}
+            <div class="verdict-box verdict-neutral">{{ prediction }}</div>
+        {% endif %}
+
+        <div class="score-text">
+            Average model score: <strong>{{ "%.4f"|format(score) }}</strong> ({{ "%.2f"|format(score * 100) }}%)
+        </div>
+
+        <p class="disclaimer">
+            The score is the model's average sigmoid output, not a calibrated probability that the media is fake. Results can be incorrect.
+        </p>
+
+        <a href="{{ url_for('index') }}" class="btn-action">Analyze Another File</a>
+    </main>
+</body>
+</html>
